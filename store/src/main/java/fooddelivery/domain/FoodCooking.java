@@ -23,6 +23,7 @@ public class FoodCooking {
     private String foodId;
 
     private String orderId;
+    private String customerId;
 
     @ElementCollection
     private List<String> options;
@@ -74,11 +75,14 @@ public class FoodCooking {
     public static void 주문정보복제(OrderPlaced orderPlaced) {
         //implement business logic here:
 
-        /** Example 1:  new item 
+        /** Example 1:  new item */
         FoodCooking foodCooking = new FoodCooking();
+        foodCooking.setCustomerId(orderPlaced.getCustomerId());
+        foodCooking.setFoodId(String.valueOf(orderPlaced.getFoodId()));
+        foodCooking.setOrderId(String.valueOf(orderPlaced.getId()));
+        foodCooking.setStatus("미결제");
         repository().save(foodCooking);
 
-        */
 
         /** Example 2:  finding and process
         
@@ -104,16 +108,16 @@ public class FoodCooking {
 
         */
 
-        /** Example 2:  finding and process
+
         
-        repository().findById(paid.get???()).ifPresent(foodCooking->{
+        repository().findByOrderId(paid.getOrderId()).ifPresent(foodCooking->{
             
-            foodCooking // do something
+            foodCooking.setStatus("결제됨"); // do something
             repository().save(foodCooking);
 
 
          });
-        */
+
 
     }
     //>>> Clean Arch / Port Method
